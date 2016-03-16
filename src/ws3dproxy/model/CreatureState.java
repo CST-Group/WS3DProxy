@@ -1,23 +1,10 @@
-/*****************************************************************************
- * Copyright 2007-2015 DCA-FEEC-UNICAMP
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- * Contributors:
- *    Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ws3dproxy.model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,7 +49,9 @@ public class CreatureState extends Observable{
     private static double Y2;
     private static int hasLeaflet = 0;
     private static int hasCollided = 0;
-    private static Map<Long, Leaflet> myLeaflets = Collections.synchronizedMap(new HashMap<Long, Leaflet>());
+   // private static Map<Long, Leaflet> myLeaflets = Collections.synchronizedMap(new HashMap<Long, Leaflet>());
+    private static Map<Long, Leaflet> myLeaflets;
+    
 
     private JSONObject infoThingActedUpon = null;
     
@@ -130,9 +119,21 @@ public class CreatureState extends Observable{
         CreatureState.hasLeaflet = hasLeaflet;
         CreatureState.hasCollided = hasCollided;
         name = myName;
-        for (Leaflet l : leafletList) {
-            myLeaflets.put(l.getID(), l);
+        
+        if (hasLeaflet == 1) {
+            myLeaflets = Collections.synchronizedMap(new HashMap<Long, Leaflet>());
+            
+            for (Leaflet l : leafletList) {
+               myLeaflets.put(l.getID(), l);
+               
+
+            }
+        } else {
+
+            myLeaflets = Collections.synchronizedMap(new HashMap<Long, Leaflet>());
+            
         }
+
     }
 
     /**
@@ -174,6 +175,8 @@ public class CreatureState extends Observable{
     public void addLeaflet(Leaflet l) {
         myLeaflets.put(l.getID(), l);
     }
+    
+    
 
     public synchronized void setThingsInVision(List<Thing> list) {
         sensoryBuffer.resetVision();
@@ -274,6 +277,8 @@ public class CreatureState extends Observable{
         return v;
 
     }
+    
+   
 
     public void setInfoThingActedUpon(String actiondata) {
 
@@ -284,8 +289,8 @@ public class CreatureState extends Observable{
                 String attribData = (infoThingActedUpon.get(Constants.TOKEN_THING_DATA)).toString();
                 JSONObject jsonAttribs = new JSONObject(attribData);
 
-                ws3dproxy.util.Logger.log("-----Thing acted upon: " + jsonAttribs.toString());
-                ws3dproxy.util.Logger.log("-----Action and Thing acted upon: " + infoThingActedUpon.toString());
+                System.out.println("-----Thing acted upon: " + jsonAttribs.toString());
+                System.out.println("-----Action and Thing acted upon: " + infoThingActedUpon.toString());
 
             } catch (JSONException ex) {
                 Logger.getLogger(CreatureState.class.getName()).log(Level.SEVERE, null, ex);

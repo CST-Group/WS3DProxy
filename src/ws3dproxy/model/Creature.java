@@ -1,21 +1,7 @@
-/*****************************************************************************
- * Copyright 2007-2015 DCA-FEEC-UNICAMP
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- * Contributors:
- *    Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ws3dproxy.model;
 
 import java.awt.Color;
@@ -86,7 +72,7 @@ public class Creature {
 
         this.s.directRay = new Line2D.Double(this.s.comX, this.s.comY, this.s.comX + Constants.RAY_RANGE * Math.cos(this.s.pitch), this.s.comY + Constants.RAY_RANGE * Math.sin(this.s.pitch));
 
-        this.attributes = new SelfAttributes(cs.getIndex(), cs.getNameID(), cs.getColorName(), a, s, cs.hasLeaflet(), cs.hasCollided());
+        this.attributes = new SelfAttributes(cs.getIndex(), cs.getNameID(), cs.getColorName(), a, s, cs.hasLeaflet(), cs.hasCollided(), cs.getLeaflets());
 
         state = cs;
         mindDisplay = new MindWindow(this);
@@ -224,9 +210,10 @@ public class Creature {
         this.s.y2 = y2;
         int hasAnyLeaflet = (leafletList.size() > 0) ? 1 : 0;
 
-        this.attributes.update(index, a, s, hasAnyLeaflet, hasCollided);
+        this.attributes.update(index, a, s, hasAnyLeaflet, hasCollided,leafletList);
 
         this.s.directRay = new Line2D.Double(this.s.comX, this.s.comY, this.s.comX + Constants.RAY_RANGE * Math.cos(this.s.pitch), this.s.comY + Constants.RAY_RANGE * Math.sin(this.s.pitch));
+        
         for (Leaflet l : leafletList) {
             if (!ifHasLeaflet(l.getID())) {
                 this.addLeaflet(l);
@@ -569,10 +556,6 @@ public class Creature {
     public synchronized void move(double vr, double vl, double w) throws CommandExecException {
         CommandUtility.sendSetAngle(this.attributes.robotIndexID, vr, vl, w);
     }
-    
-    public synchronized void rotate(double vel) throws CommandExecException {
-        CommandUtility.sendSetTurn(this.attributes.robotIndexID, vel, 0.01, -0.01);
-    }
 
     public synchronized void moveto(double v, double x, double y) throws CommandExecException {
         //CommandUtility.sendSetAngle(this.attributes.robotIndexID, vr, vl, w);
@@ -743,7 +726,7 @@ public class Creature {
             try {
                 infoThingActedUpon = new JSONObject(attData);
 
-                Logger.log("-----Thing acted upon: " + infoThingActedUpon.toString());
+                System.out.println("-----Thing acted upon: " + infoThingActedUpon.toString());
 
             } catch (JSONException ex) {
                 java.util.logging.Logger.getLogger(CreatureState.class.getName()).log(Level.SEVERE, null, ex);

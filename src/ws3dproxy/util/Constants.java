@@ -1,21 +1,7 @@
-/*****************************************************************************
- * Copyright 2007-2015 DCA-FEEC-UNICAMP
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- * Contributors:
- *    Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ws3dproxy.util;
 
 import java.awt.Color;
@@ -73,8 +59,8 @@ public class Constants {
     //Maximum fuel:
     public static final double CREATURE_MAX_FUEL = 1000.0;
 
-    public static final double DEFAULT_CREATURE_SPEED = 1; //SPEED
-    public static final double REVERSE_SPEED = -1;//keep it negative only to indicate it is a reverse motion
+    public static final double DEFAULT_CREATURE_SPEED = 4; //SPEED
+    public static final double REVERSE_SPEED = -100;//keep it negative only to indicate it is a reverse motion
     
     //Unconstious/conscious matters:
     public static final int NOT_YET_CONSCIOUS = 0;
@@ -107,7 +93,16 @@ public class Constants {
     public static final String TOKEN_CENTER_OF_MASS_Y = "COM_Y=";
     public static final String TOKEN_HAS_LEAFLET = "HASLEAFLET=";
     public static final String TOKEN_HAS_COLLIDED = "HASCOLLIDED=";
+    public static final String TOKEN_MY_LEAFLETS = "MYLEFLETS=";
     public static final String TOKEN_CATEGORY = "CATEGORY=";
+    
+    
+    public static final String TOKEN_SITUATION = "situation=";
+    public static final String TOKEN_PAYMENT = "payment=";
+    public static final String TOKEN_LEAFLET_ID = "LeafletID:";
+     public static final String TOKEN_ITENS = "Itens:";
+    public static final String TOKEN_LEAFLET_ID_INVALID = "-1";
+    
     public static final String TOKEN_OCCLUDED = "OCCLUDED=";
     public static final String TOKEN_THING_ENERGY = "THING_ENERGY=";
     public static final String TOKEN_HARDNESS = "HARDNESS=";

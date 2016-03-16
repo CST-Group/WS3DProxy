@@ -1,26 +1,20 @@
-/*****************************************************************************
- * Copyright 2007-2015 DCA-FEEC-UNICAMP
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- * Contributors:
- *    Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ws3dproxy.model;
 
 import java.awt.geom.Line2D;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import ws3dproxy.util.Constants;
 
 /**
@@ -43,7 +37,7 @@ public class SelfAttributes extends Attributes {
     
     private HashMap<String, String> infoMap = new HashMap<String, String>();
 
-    public SelfAttributes(String indexID, String name, String  colorName, Actuator actuator, MySensors s, int hasLeaflet, int hasCollided) {
+    public SelfAttributes(String indexID, String name, String  colorName, Actuator actuator, MySensors s, int hasLeaflet, int hasCollided, List<Leaflet> myLeaflets) {
         super(name, Constants.categoryCREATURE, colorName, s.x1, s.y1, s.x2, s.y2, s.comX, s.comY, s.pitch);
         //pitch = s.pitch;
         robotIndexID = indexID;
@@ -55,10 +49,10 @@ public class SelfAttributes extends Attributes {
         this.endorphine = s.endorphine;
         this.hasLeaflet = hasLeaflet;
         this.hasCollided = hasCollided;
-        this.updateMap(indexID, name, colorName, actuator, s, hasLeaflet, hasCollided);
+        this.updateMap(indexID, name, colorName, actuator, s, hasLeaflet, hasCollided, myLeaflets);
     }
 
-    public void update(String index, Actuator actuator, MySensors s, int hasLeaflet, int hasCollided) {
+    public void update(String index, Actuator actuator, MySensors s, int hasLeaflet, int hasCollided, List<Leaflet> myLeaflets) {
         this.robotIndexID = index;
         this.x1 = s.x1;
         this.y1 = s.y1;
@@ -74,10 +68,10 @@ public class SelfAttributes extends Attributes {
         this.hasLeaflet = hasLeaflet;
         this.hasCollided = hasCollided;
         super.update(x1, y1, x2, y2, centerOfMass_X, centerOfMass_Y);
-        this.updateMap(index, name, colorName, actuator, s, hasLeaflet, hasCollided);
+        this.updateMap(index, name, colorName, actuator, s, hasLeaflet, hasCollided, myLeaflets);
     }
     
-    private void updateMap(String indexID, String name, String  colorName, Actuator act, MySensors s, int hasLeaflet, int hasCollided){
+    private void updateMap(String indexID, String name, String  colorName, Actuator act, MySensors s, int hasLeaflet, int hasCollided, List<Leaflet> myLeaflets){
         infoMap.put(Constants.TOKEN_NAME_ID, name);
         infoMap.put(Constants.TOKEN_INDEX, indexID);
         infoMap.put(Constants.TOKEN_COLOR, colorName);
@@ -99,6 +93,7 @@ public class SelfAttributes extends Attributes {
         infoMap.put(Constants.TOKEN_SCORE, (new Double(s.score)).toString());
         infoMap.put(Constants.TOKEN_HAS_LEAFLET, (new Integer(hasLeaflet)).toString());
         infoMap.put(Constants.TOKEN_HAS_COLLIDED, (new Integer(hasCollided)).toString());
+        infoMap.put(Constants.TOKEN_MY_LEAFLETS, manipulatedLeaflet(myLeaflets));
         
     }
     
@@ -175,6 +170,49 @@ public class SelfAttributes extends Attributes {
     @Override
     public Map getMap() {
         return this.infoMap;
+    }
+    
+    
+    private String manipulatedLeaflet(List<Leaflet> myLeaflets) {
+
+        String r = "";
+        
+         JSONArray jsonArray = new JSONArray ();
+         
+        for (Leaflet lf : myLeaflets) {
+
+            JSONObject json = new JSONObject();
+            try {
+                json.put(Constants.TOKEN_LEAFLET_ID, lf.getID());
+                json.put(Constants.TOKEN_PAYMENT, lf.getPayment());
+                json.put(Constants.TOKEN_SITUATION, lf.getSituation());
+
+                HashMap<String, Integer[]> itens = lf.getItems();
+                JSONObject jsonItens = new JSONObject();
+
+                for (Iterator<String> iter = itens.keySet().iterator(); iter.hasNext();) {
+
+                    String str = iter.next(); //jewel color
+                    Integer[] values = (Integer[]) itens.get(str); //(total number) (collected)
+
+                    jsonItens.put(str, values);
+
+                }
+
+                json.put(Constants.TOKEN_ITENS, jsonItens);
+
+                jsonArray.put(json);
+
+            } catch (JSONException ex) {
+                Logger.getLogger(SelfAttributes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+         
+         
+
+        return (String)(jsonArray.toString());
+
     }
 
 }

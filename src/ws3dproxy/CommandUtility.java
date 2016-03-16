@@ -1,21 +1,7 @@
-/*****************************************************************************
- * Copyright 2007-2015 DCA-FEEC-UNICAMP
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- * Contributors:
- *    Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ws3dproxy;
 
 import java.util.ArrayList;
@@ -51,7 +37,8 @@ public class CommandUtility {
     private static int motorSys = 2;
     private static int hasLeaflet = 0;
     private static int hasCollided = 0;
-    private static List<Leaflet> leafletList = new ArrayList<Leaflet>();
+    //private static List<Leaflet> leafletList = new ArrayList<Leaflet>();
+    private static List<Leaflet> leafletList ;
     private static CreatureState cs;
     private static Creature creature;
 
@@ -860,10 +847,12 @@ public class CommandUtility {
         int category = 0;
         int isOccluded = 0;
         int number = 0; //number of Thing in visual sensor
+        int spuriousNum = 0;
         int numberOfLeaflets = 0;
         int numberOfLeafletItems = 0;
         long leafletID = 0;
         int payment = 0;
+        int situationOfLeaflet = 0;
         String itemKey = "";
         Integer totalNumber = 0;
         Integer collected = 0;
@@ -1024,6 +1013,7 @@ public class CommandUtility {
             /*
              * Read leaflets:
              */
+            leafletList = new ArrayList<Leaflet>();
             if (!st.hasMoreTokens()) {
                 Logger.logErr("Error - missing number of leaflets!");
             } else {
@@ -1075,10 +1065,33 @@ public class CommandUtility {
                     command = st.nextToken();
                     payment = Integer.parseInt(command);
                 }
-                leafletList.add(new Leaflet(leafletID, leafletItemsMap, payment));
+                if (!st.hasMoreTokens()) {
+                    Logger.logErr("Error - missing situation of leaflet!");
+                } else {
+                    command = st.nextToken();
+                    if (command.equals("true")){                    
+                         situationOfLeaflet = 1;
+                    }else{
+                        situationOfLeaflet = 0;
+                    
+                    }
+                    
+                }
+                leafletList.add(new Leaflet(leafletID, leafletItemsMap, payment,situationOfLeaflet ));
                 leafletItemsMap.clear();
             }
 
+        }else{
+
+            leafletList = new ArrayList<Leaflet>();
+
+            //consume spurious " 0" of the empty leaflet list:
+            if (!st.hasMoreTokens()) {
+                Logger.logErr("Error - expecting 0 of the leaflet empty list!");
+            } else {
+                command = st.nextToken();
+                spuriousNum = Integer.parseInt(command);
+            }
         }
 
         //update creature state in Status:
@@ -1243,7 +1256,7 @@ public class CommandUtility {
         };
     }
 
-    private static Leaflet createLeaflet(Long ID, HashMap items, int payment) {
-        return new Leaflet(ID, items, payment);
+    private static Leaflet createLeaflet(Long ID, HashMap items, int payment, int situation) {
+        return new Leaflet(ID, items, payment, situation);
     }
 }

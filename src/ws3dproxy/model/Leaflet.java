@@ -1,21 +1,7 @@
-/*****************************************************************************
- * Copyright 2007-2015 DCA-FEEC-UNICAMP
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- * Contributors:
- *    Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 package ws3dproxy.model;
 
@@ -27,20 +13,25 @@ import java.util.Iterator;
  * @author ecalhau
  */
 public class Leaflet {
+
+    
 private Long ID;
 
     //private int active = 1; //true: not delivered yet
     private int payment = 0; //number of points is gained by a creature when it is delivered
+    
+    private int situation = 0;
 
     //Type (i.e. color name), (Total number, Collected number)
     private HashMap<String, Integer[]> itemsMap = new HashMap<String, Integer[]>();
 
     //public Leaflet(Long ID, int activity, HashMap items, int payment) {
-    public Leaflet(Long ID, HashMap items, int payment) {
+    public Leaflet(Long ID, HashMap items, int payment, int situation) {
         this.ID = ID;
         //this.active = activity;
         setItems(items);
         this.payment = payment;
+        this.situation = situation;
     }
 
 
@@ -133,9 +124,13 @@ private Long ID;
             ret = ret + itemsMap.get(str)[0] + " ";
             ret = ret + itemsMap.get(str)[1] + " ";
         }
-        ret = ret+" payment= "+payment+" ";
+        ret = ret+" payment= "+payment+" "+" situation= "+situation+" ";
         return ret;
 
+    }
+    
+    public int getSituation() {
+        return situation;
     }
 
 //    public class ItemAttributes {

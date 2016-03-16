@@ -1,33 +1,20 @@
-/*****************************************************************************
- * Copyright 2007-2015 DCA-FEEC-UNICAMP
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- * Contributors:
- *    Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ws3dproxy.viewer;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JPanel;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.Thing;
@@ -168,16 +155,15 @@ public class EnvironmentPanel extends JPanel {
 
     private void showIntersections(Graphics g) {
         g.setColor(Color.PINK);
-        CopyOnWriteArrayList<Thing> inVision = new CopyOnWriteArrayList<>(creature.getThingsInVision());
+        List<Thing> inVision = creature.getThingsInVision();
         
-        if(!inVision.isEmpty()){            
-          for (Thing th : inVision) {
+        if(!inVision.isEmpty())
+        for (Thing th : inVision) {
             List<WorldPoint> hits = creature.getHitPoints(th, creature.s.directRay);
             if(!hits.isEmpty())
             for (WorldPoint pt : hits) {
                 g.fillOval((int) pt.getX() - 2, (int) pt.getY() - 2, 5, 5);
             }
-          }
         }
     }
 
