@@ -46,7 +46,7 @@ public class World {
     private HashMap<String, Thing> allThings = new HashMap();
 
     private World() {
-        System.out.println("Creating new World");
+        //System.out.println("Creating new World");
         try {
             getDimensionAndDeliverySpot();
         } catch (Exception e) {

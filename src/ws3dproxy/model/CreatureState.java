@@ -303,8 +303,8 @@ public class CreatureState extends Observable{
                 String attribData = (infoThingActedUpon.get(Constants.TOKEN_THING_DATA)).toString();
                 JSONObject jsonAttribs = new JSONObject(attribData);
 
-                System.out.println("-----Thing acted upon: " + jsonAttribs.toString());
-                System.out.println("-----Action and Thing acted upon: " + infoThingActedUpon.toString());
+                //System.out.println("-----Thing acted upon: " + jsonAttribs.toString());
+                //System.out.println("-----Action and Thing acted upon: " + infoThingActedUpon.toString());
 
             } catch (JSONException ex) {
                 Logger.getLogger(CreatureState.class.getName()).log(Level.SEVERE, null, ex);

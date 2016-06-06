@@ -53,7 +53,7 @@ public class ResourcesGenerator extends Thread {
     public void run() {
         while (true) {
             try {
-                System.out.println(".......ResourcesGenerator cycle running.........");
+                //System.out.println(".......ResourcesGenerator cycle running.........");
 
                 //generate food
                 //perishable
@@ -65,7 +65,7 @@ public class ResourcesGenerator extends Thread {
                     generateJewel(jewelType);
                 }
 
-                System.out.println("..............ResourcesGenerator SLEEPING........");
+                //System.out.println("..............ResourcesGenerator SLEEPING........");
                 Thread.sleep(timeInMinutes * 60000);
 
             } catch (Exception ex) {

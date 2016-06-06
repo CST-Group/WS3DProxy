@@ -180,7 +180,7 @@ public class WS3DProxy {
                 Logger.logErr( "Width missed!");
             }
             String command = st.nextToken();
-            System.out.println("Command: "+command);
+            //System.out.println("Command: "+command);
             world.setEnvironmentWidth(Integer.parseInt(command));
             if (!st.hasMoreTokens()) {
                 Logger.logErr( "Height missed!");

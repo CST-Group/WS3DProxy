@@ -151,15 +151,15 @@ public class Creature {
 
         double ret = 0;
         List<Double> dist = new ArrayList<Double>();
-        System.out.println("________________________Thing name: " + th.getName());
+        //System.out.println("________________________Thing name: " + th.getName());
         List<WorldPoint> list = getHitPoints(th, this.s.directRay);
         if (!list.isEmpty()) {
             for (WorldPoint v : list) {
                 dist.add(this.getPosition().distanceTo(v));
-                System.out.println("________________________Creature at " + this.getPosition() + "  and v= " + v.toString() + " and dist: " + this.getPosition().distanceTo(v));
+                //System.out.println("________________________Creature at " + this.getPosition() + "  and v= " + v.toString() + " and dist: " + this.getPosition().distanceTo(v));
             }
             Collections.sort(dist);
-            System.out.println("dist_0: " + dist.get(0));
+            //System.out.println("dist_0: " + dist.get(0));
             ret = dist.get(0); //the closest
         } else {
             ret = getShortestDistanceToVertices(th);
@@ -714,7 +714,7 @@ public class Creature {
     }
 
     public synchronized void rotate(double vel) throws CommandExecException {
-        CommandUtility.sendSetTurn(this.attributes.robotIndexID, vel, 0.01, -0.01);
+        CommandUtility.sendSetTurn(this.attributes.robotIndexID, vel, vel, -vel);
     }
     
     private static WorldPoint getIntersections(double a_x1, double a_y1, double a_x2, double a_y2, double b_x1, double b_y1, double b_x2, double b_y2) {
@@ -744,7 +744,7 @@ public class Creature {
             try {
                 infoThingActedUpon = new JSONObject(attData);
 
-                System.out.println("-----Thing acted upon: " + infoThingActedUpon.toString());
+                //System.out.println("-----Thing acted upon: " + infoThingActedUpon.toString());
 
             } catch (JSONException ex) {
                 java.util.logging.Logger.getLogger(CreatureState.class.getName()).log(Level.SEVERE, null, ex);
