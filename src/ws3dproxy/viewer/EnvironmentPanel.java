@@ -21,7 +21,6 @@ package ws3dproxy.viewer;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
@@ -132,7 +131,7 @@ public class EnvironmentPanel extends JPanel {
     
         private void paintSecurityArea(Graphics g) {
 
-        List<Thing> thingsList = creature.getThingsInVision();
+        List<Thing> thingsList = Collections.synchronizedList(creature.getThingsInVision());
         if (thingsList.size() > 0) {
             for (Thing th : thingsList) {
                 Rectangle2D.Double area = th.getSecArea();
