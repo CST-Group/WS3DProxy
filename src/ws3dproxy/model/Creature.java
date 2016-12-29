@@ -137,7 +137,7 @@ public class Creature {
     public synchronized String getThingsNames() {
         String s = "";
 
-        for (Thing t : thingsInVision) {
+        for (Thing t : Collections.synchronizedList(thingsInVision)) {
             s = s + " " + t.getAttributes().getName();
         }
         return s;

@@ -248,7 +248,11 @@ public class World {
             Logger.logErr("Error - missing number of things!");
         } else {
             command = st.nextToken();
-            number = Integer.parseInt(command);
+            try {
+               number = Integer.parseInt(command);
+            } catch (NumberFormatException e) {
+                System.out.println("Error in World:getWorldEntities> "+command);
+            }   
         }
 
         for (int i = 0; i <= number - 1; i++) { //loop to create Things

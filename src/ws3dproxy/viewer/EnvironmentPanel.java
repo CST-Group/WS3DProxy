@@ -27,6 +27,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JPanel;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.Thing;
@@ -102,7 +103,7 @@ public class EnvironmentPanel extends JPanel {
 
     private void paintThingsInVision(Graphics g) {
 
-        List<Thing> thingsList = creature.getThingsInVision();
+        List<Thing> thingsList = Collections.synchronizedList(creature.getThingsInVision());
         if (thingsList.size() > 0) {
             List<Thing> thingsListCopy = Collections.synchronizedList(new ArrayList<Thing>());
             for (int i = 0; i < thingsList.size(); i++) {
@@ -118,9 +119,10 @@ public class EnvironmentPanel extends JPanel {
 
     private void paintArea(Graphics g) {
 
-        List<Thing> thingsList = creature.getThingsInVision();
-        if (thingsList.size() > 0) {
-            for (Thing th : thingsList) {
+        List<Thing> thingsList = Collections.synchronizedList(creature.getThingsInVision());
+        CopyOnWriteArrayList<Thing> tL = new CopyOnWriteArrayList(thingsList);
+        if (tL.size() > 0) {
+            for (Thing th : tL) {
                 Rectangle2D.Double area = th.getAttributes().getShape();
                 g2.setColor(Color.CYAN);
                 g2.draw(area);
@@ -129,11 +131,12 @@ public class EnvironmentPanel extends JPanel {
         }
     }
     
-        private void paintSecurityArea(Graphics g) {
+        private synchronized void paintSecurityArea(Graphics g) {
 
         List<Thing> thingsList = Collections.synchronizedList(creature.getThingsInVision());
-        if (thingsList.size() > 0) {
-            for (Thing th : thingsList) {
+        CopyOnWriteArrayList<Thing> tL = new CopyOnWriteArrayList(thingsList);
+        if (tL.size() > 0) {
+            for (Thing th : tL) {
                 Rectangle2D.Double area = th.getSecArea();
                 g2.setColor(Color.RED);
                 g2.draw(area);
@@ -144,7 +147,7 @@ public class EnvironmentPanel extends JPanel {
 
     private void paintAreaSides(Graphics2D g2) {
 
-        List<Thing> thingsList = creature.getThingsInVision();
+        List<Thing> thingsList = Collections.synchronizedList(creature.getThingsInVision());
         if (thingsList.size() > 0) {
             for (Thing th : thingsList) {
                 List<Line2D.Double> sides = th.getAreaSides();
@@ -167,7 +170,7 @@ public class EnvironmentPanel extends JPanel {
 
     private void showIntersections(Graphics g) {
         g.setColor(Color.PINK);
-        List<Thing> inVision = creature.getThingsInVision();
+        List<Thing> inVision = Collections.synchronizedList(creature.getThingsInVision());
         
         if(!inVision.isEmpty())
         for (Thing th : inVision) {

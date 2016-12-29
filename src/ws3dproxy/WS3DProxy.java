@@ -127,7 +127,7 @@ public class WS3DProxy {
         try {
             //This delay is a precaution, since the creature takes a few milliseconds to be set in the JME scene graph
             //Otherwise, the return of the updateStatus might be a void response.
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         } catch (InterruptedException ex) {
             Logger.logException(WS3DProxy.class.getName(), ex);
         }
