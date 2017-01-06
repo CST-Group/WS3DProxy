@@ -714,7 +714,7 @@ public class Creature {
     }
 
     public synchronized void rotate(double vel) throws CommandExecException {
-        CommandUtility.sendSetTurn(this.attributes.robotIndexID, vel, vel, -vel);
+        CommandUtility.sendSetAngle(this.attributes.robotIndexID, vel, -vel, vel);
     }
     
     private static WorldPoint getIntersections(double a_x1, double a_y1, double a_x2, double a_y2, double b_x1, double b_y1, double b_x2, double b_y2) {
