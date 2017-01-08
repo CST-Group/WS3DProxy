@@ -103,12 +103,13 @@ public class EnvironmentPanel extends JPanel {
 
     private void paintThingsInVision(Graphics g) {
 
-        List<Thing> thingsList = Collections.synchronizedList(creature.getThingsInVision());
+        CopyOnWriteArrayList<Thing> thingsList = new CopyOnWriteArrayList(creature.getThingsInVision());
         if (thingsList.size() > 0) {
-            List<Thing> thingsListCopy = Collections.synchronizedList(new ArrayList<Thing>());
-            for (int i = 0; i < thingsList.size(); i++) {
-                Thing o = thingsList.get(i);
-                thingsListCopy.add(o);
+            //List<Thing> thingsListCopy = Collections.synchronizedList(new ArrayList<Thing>());
+            for (Thing o : thingsList) {
+            //for (int i = 0; i < thingsList.size(); i++) {
+                //Thing o = thingsList.get(i);
+                //thingsListCopy.add(o);
                 if (o.getDrawer() != null) {
                     o.getDrawer().draw(g, g2, mindBoardColor);
                 }

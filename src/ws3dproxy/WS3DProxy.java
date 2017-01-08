@@ -131,6 +131,8 @@ public class WS3DProxy {
         } catch (InterruptedException ex) {
             Logger.logException(WS3DProxy.class.getName(), ex);
         }
+        if (creature == null) System.out.println("Problem in the creation of the creature ..."+this.robotIndexID+" "+this.robotNameID);
+        else System.out.println("Creature "+creature.getName()+" created ...!");
         creature.updateState();
         creature.genLeaflet();
         creature.startCamera(robotIndexID);
