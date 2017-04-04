@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observer;
 import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -94,7 +95,12 @@ public class Creature {
     
     public void addMindWindow() {
         mindDisplay = new MindWindow(this);
-        state.addObserver(mindDisplay);
+        observeWindow(mindDisplay);
+        //state.addObserver(mindDisplay);
+    }
+    
+    public void observeWindow(Observer o) {
+        state.addObserver(o);        
     }
 
     public static Creature getInstance(CreatureState cs) {

@@ -19,16 +19,17 @@
 package ws3dproxy.viewer;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.Thing;
 import ws3dproxy.model.World;
@@ -181,6 +182,21 @@ public class EnvironmentPanel extends JPanel {
                 g.fillOval((int) pt.getX() - 2, (int) pt.getY() - 2, 5, 5);
             }
         }
+    }
+    
+    public void attachToJScrollPane(JScrollPane father) {
+        javax.swing.GroupLayout epLayout = new javax.swing.GroupLayout(this);
+        this.setLayout(epLayout);
+        Dimension d = this.getSize();
+        epLayout.setHorizontalGroup(
+            epLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, d.width, Short.MAX_VALUE)
+        );
+        epLayout.setVerticalGroup(
+            epLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, d.height, Short.MAX_VALUE)
+        );
+        father.setViewportView(this);
     }
 
 }
