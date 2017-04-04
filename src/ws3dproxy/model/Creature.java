@@ -59,7 +59,7 @@ public class Creature {
 
     private final SelfAttributes attributes;
 
-    private final MindWindow mindDisplay;
+    private MindWindow mindDisplay;
 
     private JSONObject infoThingActedUpon = null;
 
@@ -89,9 +89,12 @@ public class Creature {
         this.attributes = new SelfAttributes(cs.getIndex(), cs.getNameID(), cs.getColorName(), a, s, cs.hasLeaflet(), cs.hasCollided(), cs.getLeaflets());
 
         state = cs;
+        mindDisplay = null;
+    }
+    
+    public void addMindWindow() {
         mindDisplay = new MindWindow(this);
         state.addObserver(mindDisplay);
-
     }
 
     public static Creature getInstance(CreatureState cs) {
