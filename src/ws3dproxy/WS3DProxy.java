@@ -93,7 +93,7 @@ public class WS3DProxy {
     public synchronized Creature createCreature() throws CommandExecException {
         return createCreature(xDefault, yDefault, pitchDefault);
     }
-
+    
     /**
      * A creature at position (X,Y) is returned. 
      * A new one is created if necessary. 
@@ -107,9 +107,26 @@ public class WS3DProxy {
      * @throws CommandExecException
      */
     public synchronized Creature createCreature(double x, double y, double pitch) throws CommandExecException {
+        return(createCreature(x,y,pitch,0));
+    }
+
+    /**
+     * A creature at position (X,Y) is returned. 
+     * A new one is created if necessary. 
+     * Note that if a creature already exists at (X,Y) with a different pitch
+     * the pitch is changed.
+     *
+     * @param X
+     * @param Y
+     * @param pitch in degrees
+     * @param color : 0 (yellow) or 1 (red)
+     * @return the creature created
+     * @throws CommandExecException
+     */
+    public synchronized Creature createCreature(double x, double y, double pitch, int color) throws CommandExecException {
         String cIndex = CommandUtility.checkCreature(x, y, pitch);
         if (cIndex.equals("")) {
-            StringTokenizer st = CommandUtility.sendNewCreature(x, y, pitch);
+            StringTokenizer st = CommandUtility.sendNewCreature(x, y, pitch, color);
             if (st.hasMoreTokens()) {
                 this.robotIndexID = st.nextToken();
             }

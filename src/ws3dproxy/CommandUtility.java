@@ -648,6 +648,22 @@ public class CommandUtility {
         String controlMessage = "new " + X + " " + Y + " " + pitch;
         return sendCmdAndGetResponse(controlMessage);
     }
+    
+    /**
+     * Create a new creature (coloured version).
+     *
+     * @param x abscissa of the location of the creature
+     * @param y ordinate of the location of the creature
+     * @param pitch direction to which the creature is headed
+     * @return server successful response with creature position. Format:
+     * "CreatureIndex CreatureName X Y Pitch"
+     * @throws CommandExecException An exception is thrown in case of missing or
+     * invalid parameter
+     */
+    public static synchronized StringTokenizer sendNewCreature(double X, double Y, double pitch, int color) throws CommandExecException {
+        String controlMessage = "new " + X + " " + Y + " " + pitch + " " + color;
+        return sendCmdAndGetResponse(controlMessage);
+    }
 
     /**
      * Creates a new cage.
