@@ -238,10 +238,11 @@ public class Creature {
         this.s.directRay = new Line2D.Double(this.s.comX, this.s.comY, this.s.comX + Constants.RAY_RANGE * Math.cos(this.s.pitch), this.s.comY + Constants.RAY_RANGE * Math.sin(this.s.pitch));
         
         for (Leaflet l : leafletList) {
+
             if (!ifHasLeaflet(l.getID())) {
                 this.addLeaflet(l);
             } else {
-                this.updateLeaflet(l.getID(), l.getItems());
+                this.updateLeaflet(l.getID(), l.getItems(), l.getSituation());
             }
         }
     }
@@ -261,6 +262,8 @@ public class Creature {
             this.setThingsInCameraFrustrum(cs.getThingsInCameraFrustrum());
             this.setInfoThingActedUpon(cs.getInfoThingActedUpon());
 
+            
+            
         } catch (CommandExecException ex) {
             Logger.logException(WS3DProxy.class.getName(), ex);
         }
@@ -491,9 +494,10 @@ public class Creature {
         return ret;
     }
 
-    public synchronized void updateLeaflet(Long ID, HashMap items) {
+    public synchronized void updateLeaflet(Long ID, HashMap items, int situation) {
 
         myLeaflets.get(ID).setItems(items);
+        myLeaflets.get(ID).setSituation(situation);
     }
 
     public String getName() {

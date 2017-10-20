@@ -1,4 +1,4 @@
-/*****************************************************************************
+/** ***************************************************************************
  * Copyright 2007-2015 DCA-FEEC-UNICAMP
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  *
  * Contributors:
  *    Patricia Rocha de Toro, Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
+ **************************************************************************** */
 package ws3dproxy;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class CommandUtility {
     private static int hasLeaflet = 0;
     private static int hasCollided = 0;
     //private static List<Leaflet> leafletList = new ArrayList<Leaflet>();
-    private static List<Leaflet> leafletList ;
+    private static List<Leaflet> leafletList;
     private static CreatureState cs;
     private static Creature creature;
 
@@ -624,7 +624,8 @@ public class CommandUtility {
      *
      * @param robotID sequence number assigned to each object once it is
      * @return server response with the number of entities. Format: "ThingName1
-     * category isOccluded X1 X2 Y1 Y2 pitch hardness energy shininess colorName"
+     * category isOccluded X1 X2 Y1 Y2 pitch hardness energy shininess
+     * colorName"
      * @throws CommandExecException An exception is thrown in case of missing or
      * invalid parameter
      */
@@ -648,7 +649,7 @@ public class CommandUtility {
         String controlMessage = "new " + X + " " + Y + " " + pitch;
         return sendCmdAndGetResponse(controlMessage);
     }
-    
+
     /**
      * Create a new creature (coloured version).
      *
@@ -743,6 +744,11 @@ public class CommandUtility {
      */
     public static synchronized StringTokenizer sendNewJewel(int type, double X, double Y) throws CommandExecException {
         String controlMessage = "jewel " + type + " " + X + " " + Y;
+        return sendCmdAndGetResponse(controlMessage);
+    }
+
+    public static synchronized StringTokenizer sendNewDeliverySpot(int type, double X, double Y) throws CommandExecException {
+        String controlMessage = "newDeliverySpot " + type + " " + X + " " + Y;
         return sendCmdAndGetResponse(controlMessage);
     }
 
@@ -892,7 +898,7 @@ public class CommandUtility {
         String actionData = " ";
 
         StringTokenizer st = CommandUtility.sendGetCreatureState(nameID);
-      
+
         ///////////////////Creature data:
         if (!st.hasMoreTokens()) {
             Logger.logErr("Error - myName missing!");
@@ -1099,19 +1105,19 @@ public class CommandUtility {
                     Logger.logErr("Error - missing situation of leaflet!");
                 } else {
                     command = st.nextToken();
-                    if (command.equals("true")){                    
-                         situationOfLeaflet = 1;
-                    }else{
+                    if (command.equals("true")) {
+                        situationOfLeaflet = 1;
+                    } else {
                         situationOfLeaflet = 0;
-                    
+
                     }
-                    
+
                 }
-                leafletList.add(new Leaflet(leafletID, leafletItemsMap, payment,situationOfLeaflet ));
+                leafletList.add(new Leaflet(leafletID, leafletItemsMap, payment, situationOfLeaflet));
                 leafletItemsMap.clear();
             }
 
-        }else{
+        } else {
 
             leafletList = new ArrayList<Leaflet>();
 

@@ -1,4 +1,4 @@
-/*****************************************************************************
+/** ***************************************************************************
  * Copyright 2007-2015 DCA-FEEC-UNICAMP
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,12 @@
  *
  * Contributors:
  *    Patricia Rocha de Toro, Elisa Calhau de Castro, Ricardo Ribeiro Gudwin
- *****************************************************************************/
-
+ **************************************************************************** */
 package ws3dproxy.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -28,14 +28,13 @@ import java.util.Iterator;
  */
 public class Leaflet {
 
-    
-private Long ID;
+    private Long ID;
 
     //private int active = 1; //true: not delivered yet
     private int payment = 0; //number of points is gained by a creature when it is delivered
-    
-    private int situation = 0;
 
+    private int situation = 0;
+    
     //Type (i.e. color name), (Total number, Collected number)
     private HashMap<String, Integer[]> itemsMap = new HashMap<String, Integer[]>();
 
@@ -45,27 +44,44 @@ private Long ID;
         //this.active = activity;
         setItems(items);
         this.payment = payment;
-        this.situation = situation;
+        this.setSituation(situation);
     }
 
+    public boolean isCompleted() {
+
+        boolean isCompleted = false;
+
+        for (Map.Entry<String, Integer[]> leafletJewel : getItems().entrySet()) {
+            Integer[] jewels = leafletJewel.getValue();
+
+            if (jewels[0] != jewels[1]) {
+                isCompleted = false;
+                break;
+            } else {
+                isCompleted = true;
+            }
+        }
+
+        return isCompleted;
+    }
 
     public HashMap<String, Integer[]> getItems() {
 
         return itemsMap;
     }
 
-    public void setItems(HashMap<String, Integer[]> items){
+    public void setItems(HashMap<String, Integer[]> items) {
 
         for (Iterator<String> iter = items.keySet().iterator(); iter.hasNext();) {
             String str = iter.next(); //jewel color
-            Integer[]values = (Integer[]) items.get(str); //(total number) (collected)
+            Integer[] values = (Integer[]) items.get(str); //(total number) (collected)
 
             itemsMap.put(str, values);
 
         }
     }
 
-    public int getPayment(){
+    public int getPayment() {
         return payment;
     }
 //    public synchronized int getActivity(){
@@ -75,38 +91,45 @@ private Long ID;
 //        active = ac;
 //    }
 
-    public int getTotalNumberOfType(String type){
+    public int getTotalNumberOfType(String type) {
 
-        if(itemsMap.containsKey(type)){
-            Integer[]values = null;
+        if (itemsMap.containsKey(type)) {
+            Integer[] values = null;
             values = itemsMap.get(type);
             return values[0];
-        }else return -1;
+        } else {
+            return -1;
+        }
     }
-    public int getCollectedNumberOfType(String type){
 
-        if(itemsMap.containsKey(type)){
-            Integer[]values = null;
+    public int getCollectedNumberOfType(String type) {
+
+        if (itemsMap.containsKey(type)) {
+            Integer[] values = null;
             values = itemsMap.get(type);
             return values[1];
-        }else return -1;
+        } else {
+            return -1;
+        }
     }
 
-    public int getMissingNumberOfType(String type){
+    public int getMissingNumberOfType(String type) {
 
-        if(itemsMap.containsKey(type)){
-            Integer[]values = null;
+        if (itemsMap.containsKey(type)) {
+            Integer[] values = null;
             values = itemsMap.get(type);
             return (values[0] - values[1]);
-        }else return -1;
+        } else {
+            return -1;
+        }
     }
 
-    public HashMap getWhatToCollect(){
+    public HashMap getWhatToCollect() {
 
         HashMap<String, Integer> itemsToSearch = new HashMap<String, Integer>();
         for (Iterator iter = itemsMap.keySet().iterator(); iter.hasNext();) {
 
-            String type = (String)iter.next();
+            String type = (String) iter.next();
             itemsToSearch.put(type, getMissingNumberOfType(type));
         }
         return itemsToSearch;
@@ -114,37 +137,43 @@ private Long ID;
 
     public boolean ifInLeaflet(String type) {
 
-        if (itemsMap.containsKey(type)) return true;
-        else return false;
+        if (itemsMap.containsKey(type)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Long getID() {
         return ID;
     }
 
-
     /**
-     * Format: (space)Color(space)number(space)
-     * Begin and end with blank space
+     * Format: (space)Color(space)number(space) Begin and end with blank space
+     *
      * @return
      */
     @Override
-    public String toString(){
-        String ret = "LeafletID: "+this.ID+" ";
+    public String toString() {
+        String ret = "LeafletID: " + this.ID + " ";
         for (Iterator<String> iter = itemsMap.keySet().iterator(); iter.hasNext();) {
             String str = iter.next(); //jewel color
-            ret = ret + "Type: "+ str + " ";
+            ret = ret + "Type: " + str + " ";
             //(total number) (collected)
             ret = ret + itemsMap.get(str)[0] + " ";
             ret = ret + itemsMap.get(str)[1] + " ";
         }
-        ret = ret+" payment= "+payment+" "+" situation= "+situation+" ";
+        ret = ret + " payment= " + payment + " " + " situation= " + getSituation() + " ";
         return ret;
 
     }
-    
+
     public int getSituation() {
         return situation;
+    }
+
+    public void setSituation(int situation) {
+        this.situation = situation;
     }
 
 //    public class ItemAttributes {

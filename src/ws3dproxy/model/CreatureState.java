@@ -148,6 +148,7 @@ public class CreatureState extends Observable{
             
         }
 
+        CreatureState.myLeaflets = myLeaflets;
     }
 
     /**

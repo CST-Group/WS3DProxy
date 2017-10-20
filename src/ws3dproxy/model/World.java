@@ -160,6 +160,12 @@ public class World {
         CommandUtility.sendNewWaypoint(x, y);
 
     }
+    
+    
+    public static synchronized void createDeliverySpot(double x, double y) throws CommandExecException{
+        CommandUtility.sendNewDeliverySpot(4, x, y);
+        setDeliverySpot(x,y);
+    }
 
     /**
      * Command to set the simulation game environment dimension: width, height
@@ -198,11 +204,11 @@ public class World {
         return CommandUtility.requestGameStatus();
     }
 
-    public void setDeliverySpot(double x, double y) {
+    public static void setDeliverySpot(double x, double y) {
         deliverySpot = new WorldPoint(x, y);
     }
 
-    public WorldPoint getDeliverySpot() {
+    public static WorldPoint getDeliverySpot() {
         return deliverySpot;
     }
 
