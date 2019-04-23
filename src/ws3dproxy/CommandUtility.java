@@ -22,15 +22,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import org.json.JSONException;
-import org.json.JSONObject;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.CreatureState;
 import ws3dproxy.model.Leaflet;
 import ws3dproxy.model.Thing;
 import ws3dproxy.model.WorldPoint;
-import ws3dproxy.util.Constants;
 import ws3dproxy.util.Logger;
 
 /**
@@ -851,6 +847,7 @@ public class CommandUtility {
             serotonin = cs.getSerotonin();
             endorphine = cs.getEndorphine();
             creature = Creature.getInstance(cs);
+            
 
         } catch (CommandExecException ex) {
             Logger.logException(CommandUtility.class.getName(), ex);

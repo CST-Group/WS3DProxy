@@ -50,8 +50,9 @@ public class Creature {
     private WorldMap worldMap;
 
     private static CreatureState state;
+    private static List<Creature> instances = new ArrayList<Creature>();
 
-    private static Creature instance = null;
+    //private static Creature instance = null;
     private ConcurrentHashMap<Long, Leaflet> myLeaflets = new ConcurrentHashMap<Long, Leaflet>();
     private List<Thing> thingsInVision = Collections.synchronizedList(new ArrayList<Thing>());
     private List<Thing> thingsInFrustrum = Collections.synchronizedList(new ArrayList<Thing>());
@@ -104,11 +105,13 @@ public class Creature {
     }
 
     public static Creature getInstance(CreatureState cs) {
-        if (instance == null) {
-            instance = new Creature(cs);
+        for(Creature c : instances) {
+            if (c.attributes.robotIndexID.equalsIgnoreCase(cs.getIndex()))
+                return(c);
         }
-
-        return instance;
+        Creature c = new Creature(cs);
+        instances.add(c);
+        return(c);
     }
 
     public synchronized SensoryBuffer getSensoryBuffer() {

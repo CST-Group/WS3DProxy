@@ -38,8 +38,8 @@ public class WS3DProxy {
      * Port number to connect to server
      */
     private int port;
-    private Creature creature = null;
-    private String robotIndexID, robotNameID;
+    //private Creature creature = null;
+    //private String robotIndexID, robotNameID;
     private World world = null; //also referenced by "Environment" in comments
     
     private static final long xDefault = 400;
@@ -125,22 +125,24 @@ public class WS3DProxy {
      */
     public synchronized Creature createCreature(double x, double y, double pitch, int color) throws CommandExecException {
         String cIndex = CommandUtility.checkCreature(x, y, pitch);
+        String robotIndexID = "";
+        String robotNameID = "";
         if (cIndex.equals("")) {
             StringTokenizer st = CommandUtility.sendNewCreature(x, y, pitch, color);
             if (st.hasMoreTokens()) {
-                this.robotIndexID = st.nextToken();
+                robotIndexID = st.nextToken();
             }
             if (st.hasMoreTokens()) {
-                this.robotNameID = st.nextToken();
+                robotNameID = st.nextToken();
             }
         }else{
             String[] split = cIndex.split(" ");
 
-            this.robotIndexID = split[0];
-            this.robotNameID =  split[1];
+            robotIndexID = split[0];
+            robotNameID =  split[1];
         }
 
-        creature = CommandUtility.initializeCreature(robotIndexID, robotNameID);
+        Creature creature = CommandUtility.initializeCreature(robotIndexID, robotNameID);
         try {
             //This delay is a precaution, since the creature takes a few milliseconds to be set in the JME scene graph
             //Otherwise, the return of the updateStatus might be a void response.
@@ -148,8 +150,8 @@ public class WS3DProxy {
         } catch (InterruptedException ex) {
             Logger.logException(WS3DProxy.class.getName(), ex);
         }
-        if (creature == null) System.out.println("Problem in the creation of the creature ..."+this.robotIndexID+" "+this.robotNameID);
-        else System.out.println("Creature "+creature.getName()+" created ...!");
+        if (creature == null) System.out.println("Problem in the creation of the creature ..."+robotIndexID+" "+robotNameID);
+        else System.out.println("Creature "+creature.getName()+" created with the ID "+creature.getIndex()+ " ...!");
         creature.updateState();
         creature.genLeaflet();
         creature.startCamera(robotIndexID);
@@ -162,11 +164,11 @@ public class WS3DProxy {
      * @return Creature if it exists; null otherwise
      * @throws CommandExecException 
      */
-    public synchronized Creature getCreature(String robotIndex) throws CommandExecException {
+    public synchronized Creature getCreature(String robotIndexID) throws CommandExecException {
 
-        if (CommandUtility.ifCreatureExists(robotIndex)) {
-            this.robotIndexID = robotIndex;
-            creature = CommandUtility.initializeCreature(robotIndexID);
+        if (CommandUtility.ifCreatureExists(robotIndexID)) {
+            //this.robotIndexID = robotIndex;
+            Creature creature = CommandUtility.initializeCreature(robotIndexID);
             if (creature != null) {
                 creature = creature.updateState();
                 creature.genLeaflet();
