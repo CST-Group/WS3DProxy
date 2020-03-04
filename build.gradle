@@ -1,0 +1,38 @@
+plugins {
+	id 'java-library-distribution'
+}
+
+description = "WS3D-Proxy"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '0.0.1'
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'lib'      
+    }
+}
+
+dependencies {
+   implementation group: 'org.json', name: 'json', version: '20160212'
+   testImplementation group: 'junit', name: 'junit', version: '4.12' 
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+artifacts
+{
+    //archives javadocJar, sourcesJar
+    archives sourcesJar
+}
+
+
+
