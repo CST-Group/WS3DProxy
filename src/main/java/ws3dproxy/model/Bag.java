@@ -73,7 +73,7 @@ public class Bag {
         }
         
         updateMap();
-        System.out.println("Bag is: "+this.printBag());
+        //System.out.println("Bag is: "+this.printBag());
     }
 
     public int getTotalNumberFood() {
