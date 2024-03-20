@@ -49,7 +49,7 @@ public class Creature {
     public MySensors s;
     private WorldMap worldMap;
 
-    private static CreatureState state;
+    private CreatureState state;
     private static List<Creature> instances = new ArrayList<Creature>();
 
     //private static Creature instance = null;

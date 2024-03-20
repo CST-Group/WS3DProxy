@@ -50,31 +50,31 @@ public class ThingAttributes extends Attributes {
     private void updateMap(String name, int category, String c, double x1, double y1, double x2, double y2, double comX, double comY) {
         infoMap.put(Constants.TOKEN_NAME_ID, name); 
         infoMap.put(Constants.TOKEN_COLOR, c);
-        infoMap.put(Constants.TOKEN_CENTER_OF_MASS_X, (new Double(comX)).toString());
-        infoMap.put(Constants.TOKEN_CENTER_OF_MASS_Y, (new Double(comY)).toString());
-        infoMap.put(Constants.TOKEN_X1, (new Double(x1)).toString());
-        infoMap.put(Constants.TOKEN_X2, (new Double(x2)).toString());
-        infoMap.put(Constants.TOKEN_Y1, (new Double(y1)).toString());
-        infoMap.put(Constants.TOKEN_Y2, (new Double(y2)).toString());
-        infoMap.put(Constants.TOKEN_CATEGORY, (new Integer(category)).toString());
-        infoMap.put(Constants.TOKEN_HARDNESS, (new Integer(Constants.HARDNESS_DEFAULT)).toString()); 
-        infoMap.put(Constants.TOKEN_THING_ENERGY, (new Double(Constants.ENERGY_DEFAULT)).toString());
-        infoMap.put(Constants.TOKEN_OCCLUDED, (new Double(Constants.OCCLUDED_DEFAULT)).toString());
-        infoMap.put(Constants.TOKEN_SHININESS, (new Integer(Constants.SHININESS_DEFAULT)).toString()); 
-        infoMap.put(Constants.TOKEN_THING_PITCH, (new Double(Constants.PITCH_INEXISTENT)).toString());//default; only actually valid for creature (as Thing, not self)
+        infoMap.put(Constants.TOKEN_CENTER_OF_MASS_X, (Double.valueOf(comX)).toString());
+        infoMap.put(Constants.TOKEN_CENTER_OF_MASS_Y, (Double.valueOf(comY)).toString());
+        infoMap.put(Constants.TOKEN_X1, (Double.valueOf(x1)).toString());
+        infoMap.put(Constants.TOKEN_X2, (Double.valueOf(x2)).toString());
+        infoMap.put(Constants.TOKEN_Y1, (Double.valueOf(y1)).toString());
+        infoMap.put(Constants.TOKEN_Y2, (Double.valueOf(y2)).toString());
+        infoMap.put(Constants.TOKEN_CATEGORY, (Integer.valueOf(category)).toString());
+        infoMap.put(Constants.TOKEN_HARDNESS, (Integer.valueOf(Constants.HARDNESS_DEFAULT)).toString()); 
+        infoMap.put(Constants.TOKEN_THING_ENERGY, (Double.valueOf(Constants.ENERGY_DEFAULT)).toString());
+        infoMap.put(Constants.TOKEN_OCCLUDED, (Double.valueOf(Constants.OCCLUDED_DEFAULT)).toString());
+        infoMap.put(Constants.TOKEN_SHININESS, (Integer.valueOf(Constants.SHININESS_DEFAULT)).toString()); 
+        infoMap.put(Constants.TOKEN_THING_PITCH, (Double.valueOf(Constants.PITCH_INEXISTENT)).toString());//default; only actually valid for creature (as Thing, not self)
     }
 
     private void updateMap(String name, int category, String c, double x1, double y1, double x2, double y2, double comX, double comY, double pitch) {
         this.updateMap(name, category, c, x1, y1, x2, y2, comX, comY);
-        infoMap.put(Constants.TOKEN_THING_PITCH, (new Double(pitch)).toString());
+        infoMap.put(Constants.TOKEN_THING_PITCH, (Double.valueOf(pitch)).toString());
         
     }
 
     private void updateMap(String name, int category, String c, double x1, double y1, double x2, double y2, double comX, double comY, double pitch, double shininess, double energy, int isOccluded) {
         this.updateMap(name, category, c, x1, y1, x2, y2, comX, comY, pitch);
-        infoMap.put(Constants.TOKEN_THING_ENERGY, (new Double(energy)).toString());
-        infoMap.put(Constants.TOKEN_OCCLUDED, (new Double(isOccluded)).toString());
-        infoMap.put(Constants.TOKEN_SHININESS, (new Double(shininess)).toString());
+        infoMap.put(Constants.TOKEN_THING_ENERGY, (Double.valueOf(energy)).toString());
+        infoMap.put(Constants.TOKEN_OCCLUDED, (Double.valueOf(isOccluded)).toString());
+        infoMap.put(Constants.TOKEN_SHININESS, (Double.valueOf(shininess)).toString());
     }
 
     public void setIFOccluded(int b) {

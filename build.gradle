@@ -6,7 +6,7 @@ description = "WS3D-Proxy"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '0.0.1'
+version = '0.0.3'
 
 repositories {
     mavenCentral()
@@ -20,13 +20,32 @@ dependencies {
    testImplementation group: 'junit', name: 'junit', version: '4.12' 
 }
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        //configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+    manifest {
+      attributes(
+        'Class-Path': configurations.runtimeClasspath.collect { it.getName() }.join(' '),
+      )
+    }
+}
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc
+    from {
+    	configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    javadoc.options.addStringOption('Xdoclint:none', '-quiet') // this is to avoid complaints about documentation missing parameter description
 }
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
+    from {
+    	configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 artifacts
 {
