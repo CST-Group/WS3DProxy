@@ -40,29 +40,29 @@ import ws3dproxy.util.Constants;
  */
 public class CreatureState extends Observable{
 
-    private static SensoryBuffer sensoryBuffer;
+    private SensoryBuffer sensoryBuffer;
     
-    private static CreatureState instance = null;
-    private static String name;
-    private static String index;
-    private static String colorName;
-    private static double speed;
-    private static double wheel;
-    private static double size;
-    private static double pitch;
-    private static int motorSys = 2;
-    private static double fuel;
-    private static double serotonin;
-    private static double endorphine;
-    private static double score;
-    private static double center_of_mass_X;
-    private static double center_of_mass_Y;
-    private static double X1;
-    private static double Y1;
-    private static double X2;
-    private static double Y2;
-    private static int hasLeaflet = 0;
-    private static int hasCollided = 0;
+    private static List<CreatureState> instances = new ArrayList<>();
+    private String name;
+    private String index;
+    private String colorName;
+    private double speed;
+    private double wheel;
+    private double size;
+    private double pitch;
+    private int motorSys = 2;
+    private double fuel;
+    private double serotonin;
+    private double endorphine;
+    private double score;
+    private double center_of_mass_X;
+    private double center_of_mass_Y;
+    private double X1;
+    private double Y1;
+    private double X2;
+    private double Y2;
+    private int hasLeaflet = 0;
+    private int hasCollided = 0;
    // private static Map<Long, Leaflet> myLeaflets = Collections.synchronizedMap(new HashMap<Long, Leaflet>());
     private static Map<Long, Leaflet> myLeaflets;
     
@@ -97,58 +97,52 @@ public class CreatureState extends Observable{
      * @return 
      */
     public static CreatureState getInstance(String indexID, String myName, String colorName, double speed, double wheel, double pitch, int motorSys, double fuel, double serotonin, double endorphine, double score, WorldPoint position, double x1, double y1, double x2, double y2, int hasCollided, int hasLeaflet, List<Leaflet> leafletList) {
-        if (instance == null) {
-            instance = new CreatureState(indexID, myName, colorName, speed, wheel, pitch, motorSys, fuel, serotonin, endorphine, score, position, x1, y1, x2, y2, hasCollided, hasLeaflet, leafletList);
-        } else {
-
-            updateMe(indexID, myName, colorName, speed, wheel, pitch, motorSys, fuel, serotonin, endorphine, score, position, x1, y1, x2, y2, hasCollided, hasLeaflet, leafletList);
+        for (CreatureState cs : instances) {
+            if (cs.name.equals(myName)) {
+                cs.updateMe(indexID, myName, colorName, speed, wheel, pitch, motorSys, fuel, serotonin, endorphine, score, position, x1, y1, x2, y2, hasCollided, hasLeaflet, leafletList);
+                return(cs);
+            }
         }
-
-        return instance;
+        CreatureState newcs = new CreatureState(indexID, myName, colorName, speed, wheel, pitch, motorSys, fuel, serotonin, endorphine, score, position, x1, y1, x2, y2, hasCollided, hasLeaflet, leafletList);
+        instances.add(newcs);
+        return newcs;
     }
     
 
     
-    private static void updateMe(String indexID, String myName, String colorName, double speed, double wheel, double pitch, int motorSys, double fuel, double serotonin, double endorphine, double score, WorldPoint position, double x1, double y1, double x2, double y2, int hasCollided,int hasLeaflet, List<Leaflet> leafletList) {
+    private void updateMe(String indexID, String myName, String colorName, double speed, double wheel, double pitch, int motorSys, double fuel, double serotonin, double endorphine, double score, WorldPoint position, double x1, double y1, double x2, double y2, int hasCollided,int hasLeaflet, List<Leaflet> leafletList) {
         index = indexID;
-        CreatureState.colorName = colorName;
-        CreatureState.motorSys = motorSys;
+        this.colorName = colorName;
+        this.motorSys = motorSys;
         if (speed == 0) {
             speed = Constants.DEFAULT_CREATURE_SPEED;
         }
-        CreatureState.speed = speed;
-        CreatureState.wheel = wheel;
-        CreatureState.pitch = pitch;
-        CreatureState.fuel = fuel;
-        CreatureState.serotonin = serotonin;
-        CreatureState.endorphine = endorphine;
-        CreatureState.score = score;
-        CreatureState.center_of_mass_X = position.getX();
-        CreatureState.center_of_mass_Y = position.getY();
-        CreatureState.X1 = x1;
-        CreatureState.Y1 = y1;
-        CreatureState.X2 = x2;
-        CreatureState.Y2 = y2;
-        CreatureState.size = Math.round(size);
-        CreatureState.hasLeaflet = hasLeaflet;
-        CreatureState.hasCollided = hasCollided;
+        this.speed = speed;
+        this.wheel = wheel;
+        this.pitch = pitch;
+        this.fuel = fuel;
+        this.serotonin = serotonin;
+        this.endorphine = endorphine;
+        this.score = score;
+        center_of_mass_X = position.getX();
+        center_of_mass_Y = position.getY();
+        X1 = x1;
+        Y1 = y1;
+        X2 = x2;
+        Y2 = y2;
+        size = Math.round(size);
+        this.hasLeaflet = hasLeaflet;
+        this.hasCollided = hasCollided;
         name = myName;
         
         if (hasLeaflet == 1) {
             myLeaflets = Collections.synchronizedMap(new HashMap<Long, Leaflet>());
-            
             for (Leaflet l : leafletList) {
                myLeaflets.put(l.getID(), l);
-               
-
             }
         } else {
-
             myLeaflets = Collections.synchronizedMap(new HashMap<Long, Leaflet>());
-            
         }
-
-        CreatureState.myLeaflets = myLeaflets;
     }
 
     /**
