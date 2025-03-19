@@ -88,24 +88,24 @@ public class SelfAttributes extends Attributes {
         infoMap.put(Constants.TOKEN_NAME_ID, name);
         infoMap.put(Constants.TOKEN_INDEX, indexID);
         infoMap.put(Constants.TOKEN_COLOR, colorName);
-        infoMap.put(Constants.TOKEN_CREATURE_X, (new Double(s.comX)).toString());//center of mass
-        infoMap.put(Constants.TOKEN_CREATURE_Y, (new Double(s.comY)).toString());// ""
-        infoMap.put(Constants.TOKEN_CREATURE_X1, (new Double(s.x1)).toString());
-        infoMap.put(Constants.TOKEN_CREATURE_Y1, (new Double(s.y1)).toString());
-        infoMap.put(Constants.TOKEN_CREATURE_X2, (new Double(s.x2)).toString());
-        infoMap.put(Constants.TOKEN_CREATURE_Y2, (new Double(s.y2)).toString());
-        infoMap.put(Constants.TOKEN_SPEED, (new Double(act.speed)).toString());
-        infoMap.put(Constants.TOKEN_WHEEL, (new Double(act.wheel)).toString());
+        infoMap.put(Constants.TOKEN_CREATURE_X, (Double.valueOf(s.comX)).toString());//center of mass
+        infoMap.put(Constants.TOKEN_CREATURE_Y, (Double.valueOf(s.comY)).toString());// ""
+        infoMap.put(Constants.TOKEN_CREATURE_X1, (Double.valueOf(s.x1)).toString());
+        infoMap.put(Constants.TOKEN_CREATURE_Y1, (Double.valueOf(s.y1)).toString());
+        infoMap.put(Constants.TOKEN_CREATURE_X2, (Double.valueOf(s.x2)).toString());
+        infoMap.put(Constants.TOKEN_CREATURE_Y2, (Double.valueOf(s.y2)).toString());
+        infoMap.put(Constants.TOKEN_SPEED, (Double.valueOf(act.speed)).toString());
+        infoMap.put(Constants.TOKEN_WHEEL, (Double.valueOf(act.wheel)).toString());
         //TODO: include:
 //        infoMap.put(Constants.TOKEN_WHEEL_R, (new Double(act.vr)).toString());
 //        infoMap.put(Constants.TOKEN_WHEEL_L, (new Double(act.vl)).toString());
-        infoMap.put(Constants.TOKEN_CREATURE_PITCH, (new Double(s.pitch)).toString());
-        infoMap.put(Constants.TOKEN_CREATURE_ENERGY, (new Double(s.fuel)).toString());
-        infoMap.put(Constants.TOKEN_SEROTONIN, (new Double(s.serotonin)).toString());
-        infoMap.put(Constants.TOKEN_ENDORPHINE, (new Double(s.endorphine)).toString());  
-        infoMap.put(Constants.TOKEN_SCORE, (new Double(s.score)).toString());
-        infoMap.put(Constants.TOKEN_HAS_LEAFLET, (new Integer(hasLeaflet)).toString());
-        infoMap.put(Constants.TOKEN_HAS_COLLIDED, (new Integer(hasCollided)).toString());
+        infoMap.put(Constants.TOKEN_CREATURE_PITCH, (Double.valueOf(s.pitch)).toString());
+        infoMap.put(Constants.TOKEN_CREATURE_ENERGY, (Double.valueOf(s.fuel)).toString());
+        infoMap.put(Constants.TOKEN_SEROTONIN, (Double.valueOf(s.serotonin)).toString());
+        infoMap.put(Constants.TOKEN_ENDORPHINE, (Double.valueOf(s.endorphine)).toString());  
+        infoMap.put(Constants.TOKEN_SCORE, (Double.valueOf(s.score)).toString());
+        infoMap.put(Constants.TOKEN_HAS_LEAFLET, (Integer.valueOf(hasLeaflet)).toString());
+        infoMap.put(Constants.TOKEN_HAS_COLLIDED, (Integer.valueOf(hasCollided)).toString());
         infoMap.put(Constants.TOKEN_MY_LEAFLETS, manipulatedLeaflet(myLeaflets));
         
     }

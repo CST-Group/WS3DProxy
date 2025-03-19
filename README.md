@@ -19,6 +19,6 @@ Proxy for accessing the ws3d Virtual Environment directly from Java, without req
 ```
 	dependencies {
             ...
-            implementation 'com.github.CST-Group:WS3DProxy:0.0.3'
+            implementation 'com.github.CST-Group:WS3DProxy:0.0.4'
 	}
 ```

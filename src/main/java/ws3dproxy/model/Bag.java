@@ -41,12 +41,12 @@ public class Bag {
     public Bag(int numFood, int numCrystals, int numPerishableFood, int numNonPerishableFood, List<Integer> crystals) {
 
         //Initialization with all possible crystal types RED, GREEN, BLUE, YELLOW, MAGENTA, WHITE:
-        crystalsPerType.put(Constants.colorRED, new Integer(0));
-        crystalsPerType.put(Constants.colorGREEN, new Integer(0));
-        crystalsPerType.put(Constants.colorBLUE, new Integer(0));
-        crystalsPerType.put(Constants.colorYELLOW, new Integer(0));
-        crystalsPerType.put(Constants.colorMAGENTA, new Integer(0));
-        crystalsPerType.put(Constants.colorWHITE, new Integer(0));
+        crystalsPerType.put(Constants.colorRED, Integer.valueOf(0));
+        crystalsPerType.put(Constants.colorGREEN, Integer.valueOf(0));
+        crystalsPerType.put(Constants.colorBLUE, Integer.valueOf(0));
+        crystalsPerType.put(Constants.colorYELLOW, Integer.valueOf(0));
+        crystalsPerType.put(Constants.colorMAGENTA, Integer.valueOf(0));
+        crystalsPerType.put(Constants.colorWHITE, Integer.valueOf(0));
         
         supportedCrystalTypes.add(Constants.colorRED);
         supportedCrystalTypes.add(Constants.colorGREEN);

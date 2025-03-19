@@ -425,6 +425,10 @@ public class Creature {
         this.worldMap = worldMap;
     }
 
+    public synchronized double getScore() {
+        return this.s.score;
+    }
+    
     public synchronized double getSpeed() {
         return this.a.speed;
     }
