@@ -48,21 +48,13 @@ public class Leaflet {
     }
 
     public boolean isCompleted() {
-
-        boolean isCompleted = false;
-
         for (Map.Entry<String, Integer[]> leafletJewel : getItems().entrySet()) {
             Integer[] jewels = leafletJewel.getValue();
-
-            if (jewels[0] != jewels[1]) {
-                isCompleted = false;
-                break;
-            } else {
-                isCompleted = true;
-            }
+            if (jewels[0] > jewels[1]) {
+                return false;
+            }    
         }
-
-        return isCompleted;
+        return true;
     }
 
     public HashMap<String, Integer[]> getItems() {
