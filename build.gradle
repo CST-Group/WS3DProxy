@@ -4,6 +4,7 @@ plugins {
     // uma biblioteca publicada via JitPack
     id 'java-library'
     id 'distribution'  // adiciona distZip, distTar, installDist
+    id 'maven-publish'  // necessário para o JitPack publicar a biblioteca
 }
 
 description = "WS3D-Proxy"
@@ -57,4 +58,12 @@ jar {
 // Suprime warnings de documentação incompleta no javadoc
 javadoc {
     options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java  // inclui o jar principal, sources e javadoc
+        }
+    }
 }
