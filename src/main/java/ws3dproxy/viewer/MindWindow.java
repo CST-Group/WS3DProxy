@@ -60,8 +60,6 @@ public class MindWindow extends JFrame implements Observer {
         exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 System.exit(0);
-                System.runFinalization();
-                System.gc();
             }
         });
         menu.add(exitItem);

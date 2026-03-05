@@ -66,9 +66,9 @@ public class SocketUtility {
             registerWithIKernel();
 
         } catch (Exception ex) {
-            show("Server " + host + ":" + port + " is unavailable");
-            show("Please check WorldServer3D.");
-            System.exit(-1);
+        show("Server " + host + ":" + port + " is unavailable");
+        show("Please check WorldServer3D.");
+        throw new RuntimeException("WS3D server unavailable at " + host + ":" + port, ex);
         }
     }
 

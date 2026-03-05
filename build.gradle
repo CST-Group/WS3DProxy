@@ -1,58 +1,60 @@
 plugins {
-	id 'java-library-distribution'
+    // java-library é suficiente - java-library-distribution adiciona
+    // funcionalidades de distribuição que não são necessárias para
+    // uma biblioteca publicada via JitPack
+    id 'java-library'
+    id 'distribution'  // adiciona distZip, distTar, installDist
 }
 
 description = "WS3D-Proxy"
+version = '0.0.5'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+
+    // Gera automaticamente os jars de sources e javadoc
+    // sem precisar declarar tasks manuais abaixo
+    withSourcesJar()
+    withJavadocJar()
 }
 
-
-version = '0.0.4'
+compileJava {
+    options.release = 8
+    options.compilerArgs << '-Xlint:-options'
+    //options.compilerArgs << '-Xlint:unchecked'
+    options.compilerArgs << '-Xlint:deprecation'
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-   implementation group: 'org.json', name: 'json', version: '20160212'
-   testImplementation group: 'junit', name: 'junit', version: '4.12' 
+    implementation "org.json:json:20160212"
+    testImplementation "junit:junit:4.12"
 }
 
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    // Inclui as dependências dentro do jar gerado (fat jar)
     from {
-        //configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
-        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+        configurations.runtimeClasspath
+            .findAll { it.name.endsWith('jar') }
+            .collect { zipTree(it) }
     }
+
     manifest {
-      attributes(
-        'Class-Path': configurations.runtimeClasspath.collect { it.getName() }.join(' '),
-      )
+        attributes(
+            'Class-Path': configurations.runtimeClasspath
+                .collect { it.getName() }
+                .join(' ')
+        )
     }
 }
-task javadocJar(type: Jar) {
-    archiveClassifier = 'javadoc'
-    from javadoc
-    from {
-    	configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    javadoc.options.addStringOption('Xdoclint:none', '-quiet') // this is to avoid complaints about documentation missing parameter description
-}
-task sourcesJar(type: Jar) {
-    archiveClassifier = 'sources'
-    from sourceSets.main.allSource
-    from {
-    	configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
-artifacts
-{
-    //archives javadocJar, sourcesJar
-    archives sourcesJar
-}
 
-
-
+// Suprime warnings de documentação incompleta no javadoc
+javadoc {
+    options.addStringOption('Xdoclint:none', '-quiet')
+}

@@ -371,8 +371,8 @@ public class World {
      * Creates a new brick entity.
      *
      * @param type 0-Red 1-Green 2-Blue 3-Yellow 4-Magenta 5-White
-     * @param x abscissa of the location of the brick
-     * @param y ordinate of the location of the brick
+     * @param X1,Y1 abscissa of the location of the brick
+     * @param X2,Y2 ordinate of the location of the brick
      * @throws CommandExecException An exception is thrown in case of missing or
      * invalid parameter
      */
@@ -383,8 +383,8 @@ public class World {
     /**
      * Creates a new cage.
      *
-     * @param x abscissa of the location of the cage
-     * @param y ordinate of the location of the cage
+     * @param X abscissa of the location of the cage
+     * @param Y ordinate of the location of the cage
      * @throws CommandExecException An exception is thrown in case of missing or
      * invalid parameter
      */
@@ -405,8 +405,8 @@ public class World {
      * Creates a new food entity.
      *
      * @param type 0-perishable 1-non-perishable
-     * @param x abscissa of the location of the food
-     * @param y ordinate of the location of the food
+     * @param X abscissa of the location of the food
+     * @param Y ordinate of the location of the food
      * @throws CommandExecException An exception is thrown in case of missing or
      * invalid parameter
      */
@@ -449,8 +449,8 @@ public class World {
      * Creates a new jewel entity.
      *
      * @param type 0-Red 1-Green 2-Blue 3-Yellow 4-Magenta 5-White
-     * @param x abscissa of the location of the jewel
-     * @param y ordinate of the location of the jewel
+     * @param X abscissa of the location of the jewel
+     * @param Y ordinate of the location of the jewel
      * @throws CommandExecException An exception is thrown in case of missing or
      * invalid parameter
      */

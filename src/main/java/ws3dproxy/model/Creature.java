@@ -209,7 +209,6 @@ public class Creature {
      * @param wheel
      * @param pitch
      * @param fuel
-     * @param serotonin
      * @param endorphine
      * @param score
      * @param position
@@ -533,8 +532,6 @@ public class Creature {
      * Generates a "triangule" that represents the field of view (horizontal
      * perspective) of the creature (what is seen on its camera).
      *
-     * @param creature
-     * @param g
      * @return
      */
     public Polygon getFOV() {
@@ -636,7 +633,7 @@ public class Creature {
     /**
      * The creature digs an object up. The object must have been hided before.
      *
-     * @see #sendHideIt
+     * @see #hideIt
      *
      * @param thingName the unique name of the Thing. Example:
      * Jewel_1363904023537
@@ -687,7 +684,7 @@ public class Creature {
      * The leaflet is delivered at the DeliverySpot. All the crystals specified
      * in the leaflet were collected and the creature is at the DeliverySpot.
      *
-     * @param leaflet ID
+     * @param leafletID ID
      * @throws CommandExecException An exception is thrown in case of missing or
      * invalid parameter
      */

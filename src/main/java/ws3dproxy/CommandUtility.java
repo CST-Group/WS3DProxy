@@ -633,8 +633,8 @@ public class CommandUtility {
     /**
      * Create a new creature.
      *
-     * @param x abscissa of the location of the creature
-     * @param y ordinate of the location of the creature
+     * @param X abscissa of the location of the creature
+     * @param Y ordinate of the location of the creature
      * @param pitch direction to which the creature is headed
      * @return server successful response with creature position. Format:
      * "CreatureIndex CreatureName X Y Pitch"
@@ -649,8 +649,8 @@ public class CommandUtility {
     /**
      * Create a new creature (coloured version).
      *
-     * @param x abscissa of the location of the creature
-     * @param y ordinate of the location of the creature
+     * @param X abscissa of the location of the creature
+     * @param Y ordinate of the location of the creature
      * @param pitch direction to which the creature is headed
      * @return server successful response with creature position. Format:
      * "CreatureIndex CreatureName X Y Pitch"
@@ -665,8 +665,8 @@ public class CommandUtility {
     /**
      * Creates a new cage.
      *
-     * @param x abscissa of the location of the cage
-     * @param y ordinate of the location of the cage
+     * @param X abscissa of the location of the cage
+     * @param Y ordinate of the location of the cage
      * @return server successful response with cage position. Format: "CageName
      * X Y"
      * @throws CommandExecException An exception is thrown in case of missing or
@@ -681,8 +681,8 @@ public class CommandUtility {
      * Creates a new food entity.
      *
      * @param type 0-perishable 1-non-perishable
-     * @param x abscissa of the location of the food
-     * @param y ordinate of the location of the food
+     * @param X abscissa of the location of the food
+     * @param Y ordinate of the location of the food
      * @return server successful response with food position. Format: "FoodName
      * X Y"
      * @throws CommandExecException An exception is thrown in case of missing or
@@ -731,8 +731,8 @@ public class CommandUtility {
      * Creates a new jewel entity.
      *
      * @param type 0-Red 1-Green 2-Blue 3-Yellow 4-Magenta 5-White
-     * @param x abscissa of the location of the jewel
-     * @param y ordinate of the location of the jewel
+     * @param X abscissa of the location of the jewel
+     * @param Y ordinate of the location of the jewel
      * @return server successful response with jewel position. Format:
      * "JewelName X Y"
      * @throws CommandExecException An exception is thrown in case of missing or
@@ -752,8 +752,10 @@ public class CommandUtility {
      * Creates a new brick entity.
      *
      * @param type 0-Red 1-Green 2-Blue 3-Yellow 4-Magenta 5-White
-     * @param x abscissa of the location of the brick
-     * @param y ordinate of the location of the brick
+     * @param X1 1st abscissa of the location of the brick
+     * @param Y1 1st ordinate of the location of the brick
+     * @param X2 2nd abscissa of the location of the brick
+     * @param Y2 2nd ordinate of the location of the brick
      * @return server successful response with brick position. Format:
      * "BrickName X Y"
      * @throws CommandExecException An exception is thrown in case of missing or
@@ -861,7 +863,7 @@ public class CommandUtility {
      * server. The information is used to create the list of objects (Thing)
      * that are manipulated in the "mind".
      *
-     * @param unique ID of the Creature (e.g. Creature_1364966079239)
+     * @param nameID ID of the Creature (e.g. Creature_1364966079239)
      * @return the creature state that encapsulates its attributes such as
      * position, color, pitch, energy level etc
      * @throws CommandExecException An exception is thrown in case of missing or

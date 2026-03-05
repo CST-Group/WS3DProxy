@@ -100,8 +100,8 @@ public class WS3DProxy {
      * Note that if a creature already exists at (X,Y) with a different pitch
      * the pitch is changed.
      *
-     * @param X
-     * @param Y
+     * @param x
+     * @param y
      * @param pitch in degrees
      * @return the creature created
      * @throws CommandExecException
@@ -116,8 +116,8 @@ public class WS3DProxy {
      * Note that if a creature already exists at (X,Y) with a different pitch
      * the pitch is changed.
      *
-     * @param X
-     * @param Y
+     * @param x
+     * @param y
      * @param pitch in degrees
      * @param color : 0 (yellow) or 1 (red)
      * @return the creature created
@@ -160,7 +160,7 @@ public class WS3DProxy {
 
     /**
      * Return a certain Creature if it exists.
-     * @param robotIndex
+     * @param robotIndexID
      * @return Creature if it exists; null otherwise
      * @throws CommandExecException 
      */
